@@ -1,6 +1,3 @@
-; boot.asm - Multiboot загрузчик для Notepad OS
-; Компилируется NASM в 32-битный ELF
-
 MAGIC    equ 0x1BADB002
 FLAGS    equ 0x0
 CHECKSUM equ -(MAGIC + FLAGS)
@@ -14,7 +11,7 @@ align 4
 section .bss
 align 16
 stack_bottom:
-    resb 16384      ; 16 KB стек
+    resb 16384
 stack_top:
 
 section .text
@@ -22,10 +19,10 @@ global _start
 extern kernel_main
 
 _start:
-    mov esp, stack_top   ; настроить стек
-    push ebx             ; указатель на Multiboot info
-    push eax             ; магическое число Multiboot
-    call kernel_main     ; вызвать C-функцию
+    mov esp, stack_top
+    push ebx
+    push eax
+    call kernel_main
 
 .hang:
     cli
